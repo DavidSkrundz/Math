@@ -111,7 +111,7 @@ extension FixedWidthInteger {
 			var pos = false
 			while lhs != 0 {
 				let r = q % lhs
-				q = q / lhs
+				q /= lhs
 				h = q * new + old
 				old = new
 				new = h
@@ -125,7 +125,9 @@ extension FixedWidthInteger {
 	
 	/// - Returns: (X,Y,Z) such that `X = gcd(self,other)` and
 	///            `Y*self + Z*other = X`
-	public func gcdDecomposition(_ other: Self) -> (gcd: Self, Self, Self) {
+	public func gcdDecomposition(_ other: Self) -> (gcd: Self,
+	                                                selfCount: Self,
+	                                                otherCount: Self) {
 		guard other != 0 else { return (self, 1, 0) }
 		guard other != -1 else { return (1, 0, -1) }
 		let n = self / other

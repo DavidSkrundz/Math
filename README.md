@@ -1,4 +1,4 @@
-Math [![Swift Version](https://img.shields.io/badge/Swift-4.0-orange.svg)](https://swift.org/download/#snapshots) [![Build Status]()]() [![Codebeat Status]()]()
+Math [![Swift Version](https://img.shields.io/badge/Swift-4.0-orange.svg)](https://swift.org/download/#snapshots) [![Build Status](https://travis-ci.org/DavidSkrundz/Math.svg?branch=master)](https://travis-ci.org/DavidSkrundz/Math) [![Codebeat Status](https://codebeat.co/badges/1be2981d-cfc2-42d3-aa44-1451a1660d60)](https://codebeat.co/projects/github-com-davidskrundz-math-master)
 ====
 
 Adds bitwise operations and modular arithmetic
