@@ -6,7 +6,7 @@
 import XCTest
 import Math
 
-class BitwiseTests: XCTestCase {
+class RotationTests: XCTestCase {
 	func testLeftRotation() {
 		AssertEqualLSUInt8("00000001", 1, "00000010")
 		AssertEqualLSUInt8("00001110", 2, "00111000")
