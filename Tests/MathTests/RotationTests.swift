@@ -110,51 +110,51 @@ class RotationTests: XCTestCase {
 }
 
 private func AssertEqualLSInt8(_ input: String, _ shift: Int, _ result: String,
-							 _ message: @autoclosure () -> String = "",
-							 file: StaticString = #file,
-							 line: UInt = #line) {
+							   _ message: @autoclosure () -> String = "",
+							   file: StaticString = #file,
+							   line: UInt = #line) {
 	let input = Int8(bitPattern: UInt8(input, radix: 2)!)
 	let result = Int8(bitPattern: UInt8(result, radix: 2)!)
 	AssertEqualLS(input, shift, result, message, file: file, line: line)
 }
 
 private func AssertEqualLSUInt8(_ input: String, _ shift: Int, _ result: String,
-							  _ message: @autoclosure () -> String = "",
-							  file: StaticString = #file,
-							  line: UInt = #line) {
+								_ message: @autoclosure () -> String = "",
+								file: StaticString = #file,
+								line: UInt = #line) {
 	let input = UInt8(input, radix: 2)!
 	let result = UInt8(result, radix: 2)!
 	AssertEqualLS(input, shift, result, message, file: file, line: line)
 }
 
 private func AssertEqualLS<T>(_ input: T, _ shift: Int, _ result: T,
-							_ message: @autoclosure () -> String = "",
-							file: StaticString = #file,
-							line: UInt = #line) where T: BinaryInteger {
+							  _ message: @autoclosure () -> String = "",
+							  file: StaticString = #file,
+							  line: UInt = #line) where T: BinaryInteger {
 	XCTAssertEqual(input <<< shift, result, message, file: file, line: line)
 }
 
 private func AssertEqualRSInt8(_ input: String, _ shift: Int, _ result: String,
-							 _ message: @autoclosure () -> String = "",
-							 file: StaticString = #file,
-							 line: UInt = #line) {
+							   _ message: @autoclosure () -> String = "",
+							   file: StaticString = #file,
+							   line: UInt = #line) {
 	let input = Int8(bitPattern: UInt8(input, radix: 2)!)
 	let result = Int8(bitPattern: UInt8(result, radix: 2)!)
 	AssertEqualRS(input, shift, result, message, file: file, line: line)
 }
 
 private func AssertEqualRSUInt8(_ input: String, _ shift: Int, _ result: String,
-							  _ message: @autoclosure () -> String = "",
-							  file: StaticString = #file,
-							  line: UInt = #line) {
+								_ message: @autoclosure () -> String = "",
+								file: StaticString = #file,
+								line: UInt = #line) {
 	let input = UInt8(input, radix: 2)!
 	let result = UInt8(result, radix: 2)!
 	AssertEqualRS(input, shift, result, message, file: file, line: line)
 }
 
 private func AssertEqualRS<T>(_ input: T, _ shift: Int, _ result: T,
-							_ message: @autoclosure () -> String = "",
-							file: StaticString = #file,
-							line: UInt = #line) where T: BinaryInteger {
+							  _ message: @autoclosure () -> String = "",
+							  file: StaticString = #file,
+							  line: UInt = #line) where T: BinaryInteger {
 	XCTAssertEqual(input >>> shift, result, message, file: file, line: line)
 }

@@ -1,4 +1,4 @@
-// swift-tools-version:4.0
+// swift-tools-version:4.1
 //
 //  Package.swift
 //  Math
@@ -11,10 +11,13 @@ let package = Package(
 	products: [
 		.library(
 			name: "Math",
+			targets: ["Math"]),
+		.library(
+			name: "sMath",
 			type: .static,
 			targets: ["Math"]),
 		.library(
-			name: "Math",
+			name: "dMath",
 			type: .dynamic,
 			targets: ["Math"])
 	],
