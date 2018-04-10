@@ -9,6 +9,7 @@ import Math
 class ModTests: XCTestCase {
 	func testModInt8() {
 		for a in Int8.min...Int8.max {
+			printProgress(at: a)
 			for m in 1...Int8.max {
 				if a < 0 {
 					XCTAssertEqual(a.modulo(m), ((a % m) + m) % m, "\(a) mod \(m)")
@@ -21,6 +22,7 @@ class ModTests: XCTestCase {
 	
 	func testModUInt8() {
 		for a in UInt8.min...UInt8.max {
+			printProgress(at: a)
 			for m in 1...UInt8.max {
 				XCTAssertEqual(a.modulo(m), a % m, "\(a) mod \(m)")
 			}
@@ -29,6 +31,7 @@ class ModTests: XCTestCase {
 	
 	func testAddingInt8() {
 		for a in Int8.min...Int8.max {
+			printProgress(at: a)
 			for b in Int8.min...Int8.max {
 				for m in 1...Int8.max {
 					XCTAssertEqual(a.adding(b, modulo: m), Int8((Int(a) + Int(b)).modulo(Int(m))), "\(a) + \(b) mod \(m)")
@@ -39,6 +42,7 @@ class ModTests: XCTestCase {
 	
 	func testAddingUInt8() {
 		for a in UInt8.min...UInt8.max {
+			printProgress(at: a)
 			for b in UInt8.min...UInt8.max {
 				for m in 1...UInt8.max {
 					XCTAssertEqual(a.adding(b, modulo: m), UInt8((Int(a) + Int(b)).modulo(Int(m))), "\(a) + \(b) mod \(m)")
@@ -49,6 +53,7 @@ class ModTests: XCTestCase {
 	
 	func testSubtractingInt8() {
 		for a in Int8.min...Int8.max {
+			printProgress(at: a)
 			for b in Int8.min...Int8.max {
 				for m in 1...Int8.max {
 					XCTAssertEqual(a.subtracting(b, modulo: m), Int8((Int(a) - Int(b)).modulo(Int(m))), "\(a) - \(b) mod \(m)")
@@ -59,6 +64,7 @@ class ModTests: XCTestCase {
 	
 	func testSubtractingUInt8() {
 		for a in UInt8.min...UInt8.max {
+			printProgress(at: a)
 			for b in UInt8.min...UInt8.max {
 				for m in 1...UInt8.max {
 					XCTAssertEqual(a.subtracting(b, modulo: m), UInt8((Int(a) - Int(b)).modulo(Int(m))), "\(a) - \(b) mod \(m)")
@@ -69,6 +75,7 @@ class ModTests: XCTestCase {
 	
 	func testMultiplyingInt8() {
 		for a in Int8.min...Int8.max {
+			printProgress(at: a)
 			for b in Int8.min...Int8.max {
 				for m in 1...Int8.max {
 					XCTAssertEqual(a.multiplying(b, modulo: m), Int8((Int(a) * Int(b)).modulo(Int(m))), "\(a) * \(b) mod \(m)")
@@ -79,6 +86,7 @@ class ModTests: XCTestCase {
 	
 	func testMultiplyingUInt8() {
 		for a in UInt8.min...UInt8.max {
+			printProgress(at: a)
 			for b in UInt8.min...UInt8.max {
 				for m in 1...UInt8.max {
 					XCTAssertEqual(a.multiplying(b, modulo: m), UInt8((Int(a) * Int(b)).modulo(Int(m))), "\(a) * \(b) mod \(m)")
@@ -89,6 +97,7 @@ class ModTests: XCTestCase {
 	
 	func testExponentiatingInt8() {
 		for a in Int8.min...Int8.max {
+			printProgress(at: a)
 			for b in Int8.min...Int8.max {
 				for m in 1...Int8.max {
 					_ = a.exponentiating(by: b, modulo: m)
@@ -99,6 +108,7 @@ class ModTests: XCTestCase {
 	
 	func testExponentiatingUInt8() {
 		for a in UInt8.min...UInt8.max {
+			printProgress(at: a)
 			for b in UInt8.min...UInt8.max {
 				for m in 1...UInt8.max {
 					_ = a.exponentiating(by: b, modulo: m)
@@ -109,6 +119,7 @@ class ModTests: XCTestCase {
 	
 	func testInverseInt8() {
 		for a in Int8.min...Int8.max {
+			printProgress(at: a)
 			for m in 2...Int8.max {
 				if let r = a.inverse(modulo: m) {
 					XCTAssertEqual(a.multiplying(r, modulo: m), 1, "\(a).inv(\(m))")
@@ -119,6 +130,7 @@ class ModTests: XCTestCase {
 	
 	func testInverseUInt8() {
 		for a in UInt8.min...UInt8.max {
+			printProgress(at: a)
 			for m in 2...UInt8.max {
 				if let r = a.inverse(modulo: m) {
 					XCTAssertEqual(a.multiplying(r, modulo: m), 1, "\(a).inv(\(m))")
@@ -129,6 +141,7 @@ class ModTests: XCTestCase {
 	
 	func testGCDDecompositionInt8() {
 		for a in Int8.min...Int8.max {
+			printProgress(at: a)
 			for b in Int8.min...Int8.max {
 				let r = a.gcdDecomposition(b)
 				XCTAssertEqual(r.1&*a &+ r.2&*b, r.0, "\(a).gcdD(\(b))")
@@ -138,6 +151,7 @@ class ModTests: XCTestCase {
 	
 	func testGCDDecompositionUInt8() {
 		for a in UInt8.min...UInt8.max {
+			printProgress(at: a)
 			for b in UInt8.min...UInt8.max {
 				let r = a.gcdDecomposition(b)
 				XCTAssertEqual(r.1&*a &+ r.2&*b, r.0, "\(a).gcdD(\(b))")
@@ -161,4 +175,13 @@ class ModTests: XCTestCase {
 		("testGCDDecompositionInt8", testGCDDecompositionInt8),
 		("testGCDDecompositionUInt8", testGCDDecompositionUInt8),
 	]
+}
+
+@_specialize(where T == Int8)
+@_specialize(where T == UInt8)
+@inline(__always)
+private func printProgress<T: BinaryInteger>(at value: T) {
+	if value.modulo(50) == 0 {
+		print("Progress: \(value)...")
+	}
 }
