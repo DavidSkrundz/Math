@@ -10,7 +10,7 @@ extension BinaryInteger {
 	///
 	/// - Parameter modulo: The modulus
 	///
-	/// - Returns: The modulo in the range `[0,mod)` (or `(mod,0]`)
+	/// - Returns: The modulo in the range `[0,mod)`
 	public func modulo(_ modulo: Self) -> Self {
 		precondition(modulo > 0)
 		let remainder = self % modulo
