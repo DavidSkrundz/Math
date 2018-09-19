@@ -1,78 +1,72 @@
-Math [![Swift Version](https://img.shields.io/badge/Swift-4.1-orange.svg)](https://swift.org/download/#snapshots) [![Build Status](https://travis-ci.org/DavidSkrundz/Math.svg?branch=master)](https://travis-ci.org/DavidSkrundz/Math) [![Codebeat Status](https://codebeat.co/badges/1be2981d-cfc2-42d3-aa44-1451a1660d60)](https://codebeat.co/projects/github-com-davidskrundz-math-master)
-====
+# Math
 
-Adds bitwise operations and modular arithmetic
+[![](https://img.shields.io/badge/Swift-4.0%20--%204.2-orange.svg)][1]
+[![](https://img.shields.io/badge/os-macOS%20|%20Linux-lightgray.svg)][1]
+[![](https://travis-ci.com/DavidSkrundz/Math.svg?branch=master)][2]
+[![](https://codebeat.co/badges/1be2981d-cfc2-42d3-aa44-1451a1660d60)][3]
+[![](https://codecov.io/gh/DavidSkrundz/Math/branch/master/graph/badge.svg)][4]
 
-###### Todo:
-- Improve bit packing performance
+[1]: https://swift.org/download/#releases
+[2]: https://travis-ci.com/DavidSkrundz/Math
+[3]: https://codebeat.co/projects/github-com-davidskrundz-math-master
+[4]: https://codecov.io/gh/DavidSkrundz/Math
 
+Modular arithmetic and bitwise operations
 
-Bit Rotation
-------------
-
-Adds `<<<` and `>>>` to `BinaryInteger`
-
-```Swift
-let a = UInt8("11000100", radix: 2)
-let b = a <<< 2
-b == UInt8("00010011", radix: 2) // true
-```
-
-Bit Packing
------------
-
-Adds
+## Importing
 
 ```Swift
-.asBigEndian<T: BinaryInteger>(sourceBits: Int = MemoryLayout<Element>.size * 8, resultBits: Int = MemoryLayout<T>.size * 8) -> [T]
-.asLittleEndian<T: BinaryInteger>(sourceBits: Int = MemoryLayout<Element>.size * 8, resultBits: Int = MemoryLayout<T>.size * 8) -> [T]
+.package(url: "https://github.com/DavidSkrundz/Math.git", .upToNextMinor(from: "1.2.0"))
 ```
 
-to `Array<T: BinaryInteger>`
+## `BinaryInteger`
 
-These functions convert between `BinaryInteger` types, as well as the number of bits that are used within each. Calling `[UInt8].asBigEndian(resultBits: 2) -> [UInt8]` would result in the source bytes being unpacked into 2-bit numbers represented as a `[UInt8]`.
-
-``` Swift
-[UInt8].asBigEndian() -> [UInt16]
-is the inverse of
-[UInt16].bigEndianBytes
-```
+Modulo:
 
 ```Swift
-[Type1].asBigEndian(sourceBits: A, resultBits: B) -> [Type2]
-is the inverse of
-[Type2].asBigEndian(sourceBits: B, resultBits: A) -> [Type1]
+func modulo(_ modulo: Self) -> Self
 ```
 
-Byte Conversion
----------------
-
-Adds
+Bit Rotation:
 
 ```Swift
-.littleEndianBytes -> [UInt8]
-.bigEndianBytes -> [UInt8]
+static func >>> <RHS: BinaryInteger>(lhs: Self, rhs: RHS) -> Self
+static func <<< <RHS: BinaryInteger>(lhs: Self, rhs: RHS) -> Self
 ```
 
-to `FixedWidthInteger`
+## `FixedWidthInteger`
 
-Hex Conversion
---------------
-
-Adds `.hexString -> String` to `Array<UInt8>`
-
-Modular Arithmetic
-------------------
-
-Adds `.modulo(_ modulo: Self) -> Self` to `BinaryInteger`
-
-Adds multiple functions to `FixedWidthInteger`
+Byte Conversion:
 
 ```Swift
-.adding(_ other: Self, modulo: Self) -> Self
-.subtracting(_ other: Self, modulo: Self) -> Self
-.multiplying(_ other: Self, modulo: Self) -> Self
-.exponentiating(by exponent: Self, modulo: Self) -> Self
-.inverse(modulo: Self) -> Self` (Modular inverse)
-.gcdDecomposition(_ other: Self) -> (gcd: Self, selfCount: Self, otherCount: Self)
+var littleEndianBytes: [UInt8]
+var bigEndianBytes: [UInt8]
+```
+
+Modular Arithmetic:
+
+```Swift
+func adding(_ other: Self, modulo: Self) -> Self
+func subtracting(_ other: Self, modulo: Self) -> Self
+func multiplying(_ other: Self, modulo: Self) -> Self
+func exponentiating(by exponent: Self, modulo: Self) -> Self
+func inverse(modulo: Self) -> Self?
+func gcdDecomposition(_ other: Self) -> (gcd: Self, selfCount: Self, otherCount: Self)
+```
+
+## `Array where Element == UInt8`
+
+String Conversion:
+
+```Swift
+var hexString: String
+```
+
+## `Array where Element: BinaryInteger`
+
+Bit Packing/Unpacking:
+
+```Swift
+func asBigEndian<T: BinaryInteger>(sourceBits: Int = MemoryLayout<Element>.size * 8, resultBits: Int = MemoryLayout<T>.size * 8) -> [T]
+func asLittleEndian<T: BinaryInteger>(sourceBits: Int = MemoryLayout<Element>.size * 8, resultBits: Int = MemoryLayout<T>.size * 8) -> [T]
 ```

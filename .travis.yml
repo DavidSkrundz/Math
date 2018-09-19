@@ -1,14 +1,85 @@
+language: minimal
+
 os:
-  - osx
   - linux
-
-language: generic
-
+  - osx
 sudo: required
-dist: trusty
+osx_image: xcode10
 
-osx_image: xcode9.3
+services:
+  - docker
+
+env:
+  global:
+    - Repo=davidskrundz/swift
+    - UBUNTU_VERSIONS=14.04,16.04,16.10
+  matrix:
+    - SWIFT_VERSION=4.2    UBUNTU_VERSIONS=14.04,16.04,18.04
+    - SWIFT_VERSION=4.1.3
+    - SWIFT_VERSION=4.1.2
+    - SWIFT_VERSION=4.1.1
+    - SWIFT_VERSION=4.1
+    - SWIFT_VERSION=4.0.3
+    - SWIFT_VERSION=4.0.2
+    - SWIFT_VERSION=4.0
+
+install:
+  - |
+    if [[ "$TRAVIS_OS_NAME" == "osx" ]]
+    then
+      eval "$(curl -sL https://swiftenv.fuller.li/install.sh)"
+    fi
+  - |
+    if [[ "$TRAVIS_OS_NAME" == "linux" ]]
+    then
+      case `echo $SWIFT_VERSION | grep -o "\." | grep -c "\."` in
+        0) Swift=$SWIFT_VERSION.0.0 ;;
+        1) Swift=$SWIFT_VERSION.0 ;;
+        2) Swift=$SWIFT_VERSION ;;
+      esac
+      for Ubuntu in `echo $UBUNTU_VERSIONS | tr ',' '\n'`
+      do
+        docker pull $Repo:$Swift-$Ubuntu
+      done
+    fi
 
 script:
-  - eval "$(curl -sL https://swift.skrundz.ca/ci)"
-  - travis_wait 50 eval "$(curl -sL https://swift.skrundz.ca/codecov)"
+  - |
+    if [[ "$TRAVIS_OS_NAME" == "osx" ]]
+    then
+      swift test
+    fi
+  - |
+    if [[ "$TRAVIS_OS_NAME" == "linux" ]]
+    then
+      for Ubuntu in `echo $UBUNTU_VERSIONS | tr ',' '\n'`
+      do
+        docker run --volume `pwd`:/code --workdir /code $Repo:$Swift-$Ubuntu swift test
+      done
+    fi
+
+matrix:
+  include:
+    - os: osx
+      env:
+      install:
+      script:
+        - |
+          PROJ_OUTPUT=`swift package generate-xcodeproj --enable-code-coverage`
+          PROJ_NAME="${PROJ_OUTPUT/generated: .\//}"
+          SCHEME_NAME="${PROJ_NAME/.xcodeproj/}-Package"
+          MACOS_SDK=`xcodebuild -showsdks | grep macos | tail -n 1 | awk 'NF>1{print $NF}'`
+          WORKING_DIRECTORY=$(PWD) xcodebuild \
+            -project $PROJ_NAME \
+            -scheme $SCHEME_NAME \
+            -sdk $MACOS_SDK \
+            -destination arch=x86_64 \
+            -configuration Debug \
+            -enableCodeCoverage YES \
+            test | xcpretty -tc
+      after_success:
+        - |
+          if [[ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_PULL_REQUEST" == "false" ]]
+          then
+            bash <(curl -s https://codecov.io/bash)
+          fi
