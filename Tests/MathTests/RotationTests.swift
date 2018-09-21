@@ -6,7 +6,7 @@
 import XCTest
 import Math
 
-class RotationTests: XCTestCase {
+final class RotationTests: XCTestCase {
 	func testLeftRotation() {
 		AssertEqualLSUInt8("00000001", 1, "00000010")
 		AssertEqualLSUInt8("00001110", 2, "00111000")
@@ -98,14 +98,17 @@ class RotationTests: XCTestCase {
 		XCTAssertEqual(input >>> Int8(7), r7Out)
 		XCTAssertEqual(input <<< Int8(7), L7Out)
 	}
-	
+}
+
+extension RotationTests: TestCase {
 	static var allTests = [
 		("testLeftRotation", testLeftRotation),
 		("testRightRotation", testRightRotation),
 		("testLeftNegativeRotation", testLeftNegativeRotation),
 		("testRightNegativeRotation", testRightNegativeRotation),
 		("testLeftOverRotation", testLeftOverRotation),
-		("testRightOverRotation", testRightOverRotation)
+		("testRightOverRotation", testRightOverRotation),
+		("testUInt64", testUInt64),
 	]
 }
 

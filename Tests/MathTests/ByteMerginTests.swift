@@ -6,7 +6,7 @@
 import XCTest
 import Math
 
-class ByteMergingTests: XCTestCase {
+final class ByteMergingTests: XCTestCase {
 	func testMerge8To16() {
 		let source1: [Int8] = [-128, 0]
 		let result1_l: [Int16] = [128]
@@ -76,12 +76,14 @@ class ByteMergingTests: XCTestCase {
 		XCTAssertEqual(source2.asLittleEndian(), result2_l)
 		XCTAssertEqual(source2.asBigEndian(), result2_b)
 	}
-	
+}
+
+extension ByteMergingTests: TestCase {
 	static var allTests = [
 		("testMerge8To16", testMerge8To16),
 		("testMerge8To32", testMerge8To32),
 		("testMerge16To32", testMerge16To32),
 		("testMerge8To64", testMerge8To64),
-		("testMerge8To16Padding", testMerge8To16Padding)
+		("testMerge8To16Padding", testMerge8To16Padding),
 	]
 }

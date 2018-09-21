@@ -6,7 +6,7 @@
 import XCTest
 import Math
 
-class BitPackingTests: XCTestCase {
+final class BitPackingTests: XCTestCase {
 	func testSingleByte8To2() {
 		let source = [UInt8("11001001", radix: 2)!]
 		let bigResult: [UInt8] = [3, 0, 2, 1]
@@ -28,9 +28,11 @@ class BitPackingTests: XCTestCase {
 		XCTAssertEqual(source.asLittleEndian(resultBits: 3), littleResult)
 		XCTAssertEqual(littleResult.asLittleEndian(sourceBits: 3), source)
 	}
-	
+}
+
+extension BitPackingTests: TestCase {
 	static var allTests = [
 		("testSingleByte8To2", testSingleByte8To2),
-		("testMultiByte8To3", testMultiByte8To3)
+		("testMultiByte8To3", testMultiByte8To3),
 	]
 }

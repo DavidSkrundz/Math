@@ -1,12 +1,12 @@
 //
 //  HexStringTests.swift
-//  Math
+//  MathTests
 //
 
 import XCTest
 import Math
 
-class HexStringTests: XCTestCase {
+final class HexStringTests: XCTestCase {
 	func testSingleByte() {
 		XCTAssertEqual([0].hexString, "00")
 		XCTAssertEqual([1].hexString, "01")
@@ -20,9 +20,11 @@ class HexStringTests: XCTestCase {
 	func testMultipleBytes() {
 		XCTAssertEqual([0,1,20,80,160,200,255].hexString, "00011450a0c8ff")
 	}
-	
+}
+
+extension HexStringTests: TestCase {
 	static var allTests = [
 		("testSingleByte", testSingleByte),
-		("testMultipleBytes", testMultipleBytes)
+		("testMultipleBytes", testMultipleBytes),
 	]
 }

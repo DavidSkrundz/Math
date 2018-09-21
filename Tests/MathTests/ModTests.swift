@@ -6,7 +6,7 @@
 import XCTest
 import Math
 
-class ModTests: XCTestCase {
+final class ModTests: XCTestCase {
 	func testModInt8() {
 		for a in Int8.min...Int8.max {
 			printProgress(at: a)
@@ -188,7 +188,9 @@ class ModTests: XCTestCase {
 			}
 		}
 	}
-	
+}
+
+extension ModTests: TestCase {
 	static var allTests = [
 		("testModInt8", testModInt8),
 		("testModUInt8", testModUInt8),

@@ -6,7 +6,7 @@
 import XCTest
 import Math
 
-class ByteTests: XCTestCase {
+final class ByteTests: XCTestCase {
 	func testLitteEndian() {
 		XCTAssertEqual(Int8(-128).littleEndianBytes, [UInt8(128)])
 		XCTAssertEqual(UInt8(34).littleEndianBytes, [UInt8(34)])
@@ -36,9 +36,11 @@ class ByteTests: XCTestCase {
 		let d: [UInt8] = [87, 232, 178, 247, 216, 146, 206, 144]
 		XCTAssertEqual(UInt64(6334509653456768656).bigEndianBytes, d)
 	}
-	
+}
+
+extension ByteTests: TestCase {
 	static var allTests = [
 		("testLitteEndian", testLitteEndian),
-		("testBigEndian", testBigEndian)
+		("testBigEndian", testBigEndian),
 	]
 }
