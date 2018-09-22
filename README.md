@@ -16,7 +16,7 @@ Modular arithmetic and bitwise operations
 ## Importing
 
 ```Swift
-.package(url: "https://github.com/DavidSkrundz/Math.git", .upToNextMinor(from: "1.2.0"))
+.package(url: "https://github.com/DavidSkrundz/Math.git", .upToNextMinor(from: "1.3.0"))
 ```
 
 ## `BinaryInteger`
