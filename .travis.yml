@@ -12,16 +12,9 @@ services:
 env:
   global:
     - Repo=davidskrundz/swift
-    - UBUNTU_VERSIONS=14.04,16.04,16.10
+    - UBUNTU_VERSIONS=14.04,16.04,18.04
   matrix:
-    - SWIFT_VERSION=4.2    UBUNTU_VERSIONS=14.04,16.04,18.04
-    - SWIFT_VERSION=4.1.3
-    - SWIFT_VERSION=4.1.2
-    - SWIFT_VERSION=4.1.1
-    - SWIFT_VERSION=4.1
-    - SWIFT_VERSION=4.0.3
-    - SWIFT_VERSION=4.0.2
-    - SWIFT_VERSION=4.0
+    - SWIFT_VERSION=4.2
 
 install:
   - |

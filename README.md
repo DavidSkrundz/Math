@@ -1,6 +1,6 @@
 # Math
 
-[![](https://img.shields.io/badge/Swift-4.0%20--%204.2-orange.svg)][1]
+[![](https://img.shields.io/badge/Swift-4.2-orange.svg)][1]
 [![](https://img.shields.io/badge/os-macOS%20|%20Linux-lightgray.svg)][1]
 [![](https://travis-ci.com/DavidSkrundz/Math.svg?branch=master)][2]
 [![](https://codebeat.co/badges/1be2981d-cfc2-42d3-aa44-1451a1660d60)][3]

@@ -9,7 +9,7 @@ protocol TestCase {
 	static var allTests: [(String, (Self) -> () -> ())] { get }
 }
 
-#if os(macOS) && swift(>=4.1)
+#if os(macOS)
 
 final class TestCount: XCTestCase {
 	func testTestCount() {
