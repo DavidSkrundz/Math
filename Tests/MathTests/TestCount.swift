@@ -19,6 +19,7 @@ final class TestCount: XCTestCase {
 		AssertTestCount(HexStringTests.self)
 		AssertTestCount(ByteMergingTests.self)
 		AssertTestCount(BitPackingTests.self)
+		AssertTestCount(FiniteFieldIntegerTests.self)
 	}
 }
 

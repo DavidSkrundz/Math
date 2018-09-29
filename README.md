@@ -70,3 +70,49 @@ Bit Packing/Unpacking:
 func asBigEndian<T: BinaryInteger>(sourceBits: Int = MemoryLayout<Element>.size * 8, resultBits: Int = MemoryLayout<T>.size * 8) -> [T]
 func asLittleEndian<T: BinaryInteger>(sourceBits: Int = MemoryLayout<Element>.size * 8, resultBits: Int = MemoryLayout<T>.size * 8) -> [T]
 ```
+
+## `FiniteFieldInteger`
+
+A protocol used for defining custom finite fields. It implements `Numeric`, `Strideable`, and `LosslessStringConvertible`
+
+Defining a new `FiniteFieldInteger`:
+
+```Swift
+struct F_31: FiniteFieldInteger {
+	static var Order = UInt8(31) // Must be prime
+	var value: Element = 0
+}
+```
+
+Implemented functionality:
+
+```Swift
+init()
+init(_ value: Element)
+init(integerLiteral value: Element)
+init?(_ description: String)
+init?<T>(exactly source: T) where T: BinaryInteger
+
+var description: String
+
+func distance(to other: Self) -> Int
+func advanced(by n: Int) -> Self
+
+static func == (lhs: Self, rhs: Self) -> Bool
+static func < (lhs: Self, rhs: Self) -> Bool
+
+static func ... (minimum: Self, maximum: Self) -> ClosedRange<Self>
+
+static func + (lhs: Self, rhs: Self) -> Self
+static func - (lhs: Self, rhs: Self) -> Self
+static func * (lhs: Self, rhs: Self) -> Self
+static func / (lhs: Self, rhs: Self) -> Self
+static func % (lhs: Self, rhs: Self) -> Self
+func exponentiating(by value: Element) -> Self
+
+static func += (lhs: inout Self, rhs: Self)
+static func -= (lhs: inout Self, rhs: Self)
+static func *= (lhs: inout Self, rhs: Self)
+static func /= (lhs: inout Self, rhs: Self)
+static func %= (lhs: inout Self, rhs: Self)
+```
