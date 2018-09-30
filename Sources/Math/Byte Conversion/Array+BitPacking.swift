@@ -13,8 +13,8 @@ extension Array where Element: BinaryInteger {
 	/// assuming only `sourceBits` and `destinationBits` number of bits are
 	/// used. Any bits above that count are ignored and lost.
 	///
-	/// - Precondition: `0 < sourceBits <= MemoryLayout<Element>.size * 8`
-	/// - Precondition: `0 < resultBits <= MemoryLayout<T>.size * 8`
+	/// - Precondition: `0 < sourceBits <= Element().bitWidth`
+	/// - Precondition: `0 < resultBits <= T().bitWidth`
 	///
 	/// - Note: The sign of the input/output has no importance. Only the binary
 	///         representation matters
@@ -26,8 +26,8 @@ extension Array where Element: BinaryInteger {
 	/// - Parameter sourceBits: The number of bits from each source word to use
 	/// - Parameter resultBits: The number of bits in each result word to fill
 	public func asBigEndian<T: BinaryInteger>(
-		sourceBits: Int = MemoryLayout<Element>.size * 8,
-		resultBits: Int = MemoryLayout<T>.size * 8) -> [T] {
+		sourceBits: Int = Element().bitWidth,
+		resultBits: Int = T().bitWidth) -> [T] {
 		return self.toArray(endinanness: .big,
 							sourceBits: sourceBits,
 							resultBits: resultBits)
@@ -37,8 +37,8 @@ extension Array where Element: BinaryInteger {
 	/// assuming only `sourceBits` and `destinationBits` number of bits are
 	/// used. Any bits above that count are ignored and lost.
 	///
-	/// - Precondition: `0 < sourceBits <= MemoryLayout<Element>.size * 8`
-	/// - Precondition: `0 < resultBits <= MemoryLayout<T>.size * 8`
+	/// - Precondition: `0 < sourceBits <= Element().bitWidth`
+	/// - Precondition: `0 < resultBits <= T().bitWidth`
 	///
 	/// - Note: The sign of the input/output has no importance. Only the binary
 	///         representation matters
@@ -50,8 +50,8 @@ extension Array where Element: BinaryInteger {
 	/// - Parameter sourceBits: The number of bits from each source word to use
 	/// - Parameter resultBits: The number of bits in each result word to fill
 	public func asLittleEndian<T: BinaryInteger>(
-		sourceBits: Int = MemoryLayout<Element>.size * 8,
-		resultBits: Int = MemoryLayout<T>.size * 8) -> [T] {
+		sourceBits: Int = Element().bitWidth,
+		resultBits: Int = T().bitWidth) -> [T] {
 		return self.toArray(endinanness: .little,
 							sourceBits: sourceBits,
 							resultBits: resultBits)
@@ -59,15 +59,15 @@ extension Array where Element: BinaryInteger {
 	
 	/// Performs the conversion for `.asBigEndian` and `.asLittleEndian`
 	///
-	/// - Precondition: `0 < sourceBits <= MemoryLayout<Element>.size * 8`
-	/// - Precondition: `0 < resultBits <= MemoryLayout<T>.size * 8`
+	/// - Precondition: `0 < sourceBits <= Element().bitWidth`
+	/// - Precondition: `0 < resultBits <= T().bitWidth`
 	private func toArray<T: BinaryInteger>(endinanness: Endianness,
 										   sourceBits: Int,
 										   resultBits: Int) -> [T] {
 		precondition(sourceBits > 0)
 		precondition(resultBits > 0)
-		precondition(sourceBits <= MemoryLayout<Element>.size * 8)
-		precondition(resultBits <= MemoryLayout<T>.size * 8)
+		precondition(sourceBits <= Element().bitWidth)
+		precondition(resultBits <= T().bitWidth)
 		let sourceShift: (Int) -> Int
 		let resultShift: (Int) -> Int
 		switch endinanness {
