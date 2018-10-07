@@ -19,13 +19,25 @@ Modular arithmetic and bitwise operations
 .package(url: "https://github.com/DavidSkrundz/Math.git", .upToNextMinor(from: "1.3.0"))
 ```
 
-## `BinaryInteger`
+## `ModularOperations`
 
-Modulo:
+Declares modular arithmetic operations
 
 ```Swift
 func modulo(_ modulo: Self) -> Self
+func adding(_ other: Self, modulo: Self) -> Self
+func subtracting(_ other: Self, modulo: Self) -> Self
+func multiplying(_ other: Self, modulo: Self) -> Self
+func exponentiating(by exponent: Self, modulo: Self) -> Self
+func inverse(modulo: Self) -> Self?
+func gcdDecomposition(_ other: Self) -> (gcd: Self, selfCount: Self, otherCount: Self)
 ```
+
+An implementation if `modulo` is defined by `BinaryInteger`, and the remaining methods have implementations defined by `FixedWidthInteger`
+
+`Int8`, `Int16`, `Int32`, `Int64`, `UInt8`, `UInt16`, `UInt32`, and `UInt64` all conform to `ModularOperations`
+
+## `BinaryInteger`
 
 Bit Rotation:
 
@@ -41,17 +53,6 @@ Byte Conversion:
 ```Swift
 var littleEndianBytes: [UInt8]
 var bigEndianBytes: [UInt8]
-```
-
-Modular Arithmetic:
-
-```Swift
-func adding(_ other: Self, modulo: Self) -> Self
-func subtracting(_ other: Self, modulo: Self) -> Self
-func multiplying(_ other: Self, modulo: Self) -> Self
-func exponentiating(by exponent: Self, modulo: Self) -> Self
-func inverse(modulo: Self) -> Self?
-func gcdDecomposition(_ other: Self) -> (gcd: Self, selfCount: Self, otherCount: Self)
 ```
 
 ## `Array where Element == UInt8`

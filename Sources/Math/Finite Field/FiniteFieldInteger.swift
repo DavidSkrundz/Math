@@ -16,7 +16,7 @@
 ///
 /// - Note: `Self.Order` must be prime
 public protocol FiniteFieldInteger: Numeric, Strideable, Hashable, LosslessStringConvertible {
-	associatedtype Element: FixedWidthInteger, UnsignedInteger
+	associatedtype Element: ModularOperations, UnsignedInteger, LosslessStringConvertible
 	
 	static var Order: Element { get }
 	
@@ -107,7 +107,7 @@ extension FiniteFieldInteger {
 extension FiniteFieldInteger {
 	public var magnitude: Self { return self }
 	
-	public init?<T>(exactly source: T) where T: BinaryInteger {
+	public init?<T: BinaryInteger>(exactly source: T) {
 		if let exact = Element(exactly: source) {
 			self.init(exact)
 		} else {

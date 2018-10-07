@@ -4,12 +4,6 @@
 //
 
 extension FixedWidthInteger {
-	/// Calculates `(self + other) mod (modulo)`
-	///
-	/// - Precondition: `mod > 0`
-	///
-	/// - Parameter other: The number to add
-	/// - Parameter modulo: The modulus
 	public func adding(_ other: Self, modulo: Self) -> Self {
 		precondition(modulo > 0)
 		let lhs = self.modulo(modulo)
@@ -22,12 +16,6 @@ extension FixedWidthInteger {
 		return rhs - difference
 	}
 	
-	/// Calculates `(self - other) mod (modulo)`
-	///
-	/// - Precondition: `mod > 0`
-	///
-	/// - Parameter other: The number to subtract
-	/// - Parameter modulo: The modulus
 	public func subtracting(_ other: Self, modulo: Self) -> Self {
 		precondition(modulo > 0)
 		let lhs = self.modulo(modulo)
@@ -40,12 +28,6 @@ extension FixedWidthInteger {
 		return lhs + difference
 	}
 	
-	/// Calculates `(self * other) mod (modulo)`
-	///
-	/// - Precondition: `mod > 0`
-	///
-	/// - Parameter other: The number to multiply
-	/// - Parameter modulo: The modulus
 	public func multiplying(_ other: Self, modulo: Self) -> Self {
 		precondition(modulo > 0)
 		let lastBit = Self(1) << (self.bitWidth - 1)
@@ -64,12 +46,6 @@ extension FixedWidthInteger {
 		return d.modulo(modulo)
 	}
 	
-	/// Calculates `exp(self, other) mod (modulo)`
-	///
-	/// - Precondition: `mod > 0`
-	///
-	/// - Parameter exponent: The exponent
-	/// - Parameter modulo: The modulus
 	public func exponentiating(by exponent: Self, modulo: Self) -> Self {
 		precondition(modulo > 0)
 		var lhs = self
@@ -85,11 +61,6 @@ extension FixedWidthInteger {
 		return r.modulo(modulo)
 	}
 	
-	/// Calculates the modular inverse of `self`
-	///
-	/// - Precondition: `mod > 1`
-	///
-	/// - Returns: `R` such that `(self * R) mod (mod) == 1` or `nil`
 	public func inverse(modulo: Self) -> Self? {
 		precondition(modulo > 1)
 		guard self.gcdDecomposition(modulo).0 == 1 else { return nil }
@@ -123,8 +94,6 @@ extension FixedWidthInteger {
 		}
 	}
 	
-	/// - Returns: (X,Y,Z) such that `X = gcd(self,other)` and
-	///            `Y*self + Z*other = X`
 	public func gcdDecomposition(_ other: Self) -> (gcd: Self,
 	                                                selfCount: Self,
 	                                                otherCount: Self) {
