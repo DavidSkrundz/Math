@@ -33,9 +33,13 @@ func inverse(modulo: Self) -> Self?
 func gcdDecomposition(_ other: Self) -> (gcd: Self, selfCount: Self, otherCount: Self)
 ```
 
-An implementation if `modulo` is defined by `BinaryInteger` and `FloatingPoint`, and the remaining methods have implementations defined by `FixedWidthInteger`
+`FloatingPoint` and `BinaryInteger` define `modulo`
 
-`Int8`, `Int16`, `Int32`, `Int64`, `UInt8`, `UInt16`, `UInt32`, and `UInt64` all conform to `ModularOperations`
+`BinaryInteger where Self: ModularOperations` defines `exponentiating` and `inverse`
+
+`FixedWidthInteger` implements the remaining functions
+
+`Int`, `Int8`, `Int16`, `Int32`, `Int64`, `UInt`, `UInt8`, `UInt16`, `UInt32`, and `UInt64` all conform to `ModularOperations`
 
 ## `BinaryInteger`
 
