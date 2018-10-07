@@ -88,7 +88,7 @@ extension FixedWidthInteger {
 				new = h
 				q = lhs
 				lhs = r
-				pos = !pos
+				pos.toggle()
 			}
 			return pos ? old : (modulo - old)
 		}

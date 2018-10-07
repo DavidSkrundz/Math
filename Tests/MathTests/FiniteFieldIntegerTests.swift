@@ -74,6 +74,7 @@ final class FiniteFieldIntegerTests: XCTestCase {
 			let lhs = F_31(UInt8(a))
 			for b in 0..<40 {
 				XCTAssertEqual(lhs.exponentiating(by: UInt8(b)).value, UInt8(a.exponentiating(by: b, modulo: 31)), "\(a) exp \(b)")
+				XCTAssertEqual(lhs.exponentiating(by: F_31(UInt8(b))).value, UInt8(a.exponentiating(by: b.modulo(31), modulo: 31)), "\(a) exp (\(b) mod 31)")
 			}
 		}
 	}
@@ -102,19 +103,27 @@ final class FiniteFieldIntegerTests: XCTestCase {
 	}
 	
 	func testCoverage() {
-		XCTAssertNil(F_31("a"))
-		XCTAssertEqual(F_31(4).advanced(by: -2), 2)
-		XCTAssertEqual(F_31(6).advanced(by: -10), 27)
-		XCTAssertEqual(F_31(3).magnitude, 3)
 		XCTAssertEqual(F_31(exactly: UInt16(300)), 21)
+		XCTAssertEqual(F_31(exactly: 300.2), 21)
+		XCTAssertEqual(F_31(UInt16(60)), 29)
+		XCTAssertEqual(F_31(60.1), 29)
+		XCTAssertEqual(F_31(clamping: UInt16(300)), 7)
+		XCTAssertEqual(F_31(truncatingIfNeeded: UInt16(300)), 13)
 		
-		var a = F_31(3)
+		var a: F_31 = 3
 		a += 6
 		a -= 1
 		a *= 2
 		a %= 10
 		a /= 2
-		XCTAssertEqual(a, 3)
+		a = a & 2
+		a = a | 5
+		a = a ^ 3
+		a = a << 2
+		a = a >> 1
+		XCTAssertEqual(a, 8)
+		XCTAssertEqual(~a, 30)
+		XCTAssertEqual(a.trailingZeroBitCount, 3)
 	}
 }
 
