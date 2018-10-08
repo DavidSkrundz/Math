@@ -7,7 +7,7 @@
 ///
 /// Stores its contents in `words` as a `[UInt]`. The size of the numbers is
 /// only limited by the available memory
-public struct BigUInt: UnsignedInteger, ModularOperations, LosslessStringConvertible {
+public struct BigUInt: UnsignedInteger, ModularOperations, Random, LosslessStringConvertible {
 	public private(set) var words: [UInt] = [0]
 	
 	public init(words: [UInt]) {
@@ -393,6 +393,31 @@ extension BigUInt {
 		let (n, c) = self.quotientAndRemainder(dividingBy: other)
 		let r = other.gcdDecomposition(c)
 		return (r.0, r.2, r.1 - r.2*n)
+	}
+}
+
+/// Random
+extension BigUInt {
+	public static func random<T: RandomNumberGenerator>(in range: Range<BigUInt>, using generator: inout T) -> BigUInt {
+		let randomRange = range.upperBound - range.lowerBound
+		let binaryMax = BigUInt(words: randomRange.words.map { _ in .max })
+		let searchRange = binaryMax - (binaryMax % randomRange)
+		var number = BigUInt(0)
+		repeat {
+			number = BigUInt(words: randomRange.words.map { _ in generator.next() })
+		} while number >= searchRange
+		return (number % binaryMax) + range.lowerBound
+	}
+	
+	public static func random<T: RandomNumberGenerator>(in range: ClosedRange<BigUInt>, using generator: inout T) -> BigUInt {
+		let randomRange = range.upperBound - range.lowerBound
+		let binaryMax = BigUInt(words: randomRange.words.map { _ in .max })
+		let searchRange = binaryMax - (binaryMax % randomRange)
+		var number = BigUInt(0)
+		repeat {
+			number = BigUInt(words: randomRange.words.map { _ in generator.next() })
+		} while number > searchRange
+		return (number % binaryMax) + range.lowerBound
 	}
 }
 

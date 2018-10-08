@@ -15,8 +15,8 @@
 ///     }
 ///
 /// - Note: `Self.Order` must be prime for division
-public protocol FiniteFieldInteger: UnsignedInteger, LosslessStringConvertible {
-	associatedtype Element: ModularOperations, UnsignedInteger, LosslessStringConvertible
+public protocol FiniteFieldInteger: UnsignedInteger, Random, LosslessStringConvertible {
+	associatedtype Element: ModularOperations, Random, UnsignedInteger, LosslessStringConvertible
 	
 	static var Order: Element { get }
 	
@@ -200,5 +200,16 @@ extension FiniteFieldInteger {
 	
 	public static func ... (minimum: Self, maximum: Self) -> ClosedRange<Self> {
 		return ClosedRange(uncheckedBounds: (minimum, maximum))
+	}
+}
+
+/// Random
+extension FiniteFieldInteger {
+	public static func random<T: RandomNumberGenerator>(in range: Range<Self>, using generator: inout T) -> Self {
+		return Self(Element.random(in: range.lowerBound.value..<range.upperBound.value, using: &generator))
+	}
+	
+	public static func random<T: RandomNumberGenerator>(in range: ClosedRange<Self>, using generator: inout T) -> Self {
+		return Self(Element.random(in: range.lowerBound.value...range.upperBound.value, using: &generator))
 	}
 }

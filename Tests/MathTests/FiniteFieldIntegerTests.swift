@@ -134,6 +134,12 @@ final class FiniteFieldIntegerTests: XCTestCase {
 	func testBigIntFiniteField() {
 		XCTAssertEqual(F_Big() + 1, 0)
 	}
+	
+	func testRandom() {
+		for _ in 0..<100 {
+			print(F_31.random(in: F_31(3)...F_31(10)))
+		}
+	}
 }
 
 extension FiniteFieldIntegerTests: TestCase {
@@ -149,5 +155,6 @@ extension FiniteFieldIntegerTests: TestCase {
 		("testHashing", testHashing),
 		("testCoverage", testCoverage),
 		("testBigIntFiniteField", testBigIntFiniteField),
+		("testRandom", testRandom),
 	]
 }

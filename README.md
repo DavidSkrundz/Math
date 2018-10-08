@@ -19,6 +19,10 @@ Modular arithmetic and bitwise operations
 .package(url: "https://github.com/DavidSkrundz/Math.git", .upToNextMinor(from: "1.4.0"))
 ```
 
+## `Random`
+
+Declares the four `random()` functions that come with `FixedWidthInteger`
+
 ## `ModularOperations`
 
 Declares modular arithmetic operations
