@@ -16,7 +16,7 @@ Modular arithmetic and bitwise operations
 ## Importing
 
 ```Swift
-.package(url: "https://github.com/DavidSkrundz/Math.git", .upToNextMinor(from: "1.3.0"))
+.package(url: "https://github.com/DavidSkrundz/Math.git", .upToNextMinor(from: "1.4.0"))
 ```
 
 ## `ModularOperations`
@@ -121,3 +121,9 @@ static func *= (lhs: inout Self, rhs: Self)
 static func /= (lhs: inout Self, rhs: Self)
 static func %= (lhs: inout Self, rhs: Self)
 ```
+
+## `BigUInt`
+
+An arbitrary precision unsigned integer type. It conforms to `UnsignedInteger` and `ModularOperations`, and provides `func power<T: BinaryInteger>(of exponent: T) -> BigUInt`
+
+Currently there is no `BigInt` implementation so the `Strideable` conformance comes from the standard library meaning it is not safe to call `distance(to other: BigUInt)` or `advanced(by n: BigInt)` unless the difference is within the range of `Int`

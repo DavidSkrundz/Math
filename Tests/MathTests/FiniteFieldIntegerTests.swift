@@ -11,6 +11,11 @@ struct F_31: FiniteFieldInteger {
 	var value: Element = 0
 }
 
+struct F_Big: FiniteFieldInteger {
+	static var Order = BigUInt("9_223_372_036_854_775_808")!
+	var value = BigUInt("9_223_372_036_854_775_807")!
+}
+
 final class FiniteFieldIntegerTests: XCTestCase {
 	func testInitMod() {
 		for i in 0..<31 {
@@ -125,6 +130,10 @@ final class FiniteFieldIntegerTests: XCTestCase {
 		XCTAssertEqual(~a, 30)
 		XCTAssertEqual(a.trailingZeroBitCount, 3)
 	}
+	
+	func testBigIntFiniteField() {
+		XCTAssertEqual(F_Big() + 1, 0)
+	}
 }
 
 extension FiniteFieldIntegerTests: TestCase {
@@ -139,5 +148,6 @@ extension FiniteFieldIntegerTests: TestCase {
 		("testStride", testStride),
 		("testHashing", testHashing),
 		("testCoverage", testCoverage),
+		("testBigIntFiniteField", testBigIntFiniteField),
 	]
 }

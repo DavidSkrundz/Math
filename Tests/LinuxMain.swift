@@ -14,4 +14,5 @@ XCTMain([
 	testCase(ByteMergingTests.allTests.shuffled()),
 	testCase(BitPackingTests.allTests.shuffled()),
 	testCase(FiniteFieldIntegerTests.allTests.shuffled()),
+	testCase(BigIntTests.allTests.shuffled()),
 ])

@@ -190,11 +190,11 @@ extension FiniteFieldInteger {
 
 /// Custom Strideable Conformance
 extension FiniteFieldInteger {
-	public func distance(to other: Self) -> Int {
+	public func distance(to other: Self) -> Element.Stride {
 		if other > self {
-			return Int(other.value - self.value)
+			return Element.Stride(exactly: other.value - self.value)!
 		} else {
-			return Int(Self.Order - self.value + other.value)
+			return Element.Stride(exactly: Self.Order - self.value + other.value)!
 		}
 	}
 	

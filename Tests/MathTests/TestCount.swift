@@ -20,6 +20,7 @@ final class TestCount: XCTestCase {
 		AssertTestCount(ByteMergingTests.self)
 		AssertTestCount(BitPackingTests.self)
 		AssertTestCount(FiniteFieldIntegerTests.self)
+		AssertTestCount(BigIntTests.self)
 	}
 }
 
