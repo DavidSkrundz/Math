@@ -388,11 +388,14 @@ extension BigUInt {
 		return d.modulo(modulo)
 	}
 	
+	/// Since negative numbers cannot be represented and `wrapping` around is
+	/// not an option for arbitrary precision integers, the `selfCount` and
+	/// `otherCount` values are meaningless
 	public func gcdDecomposition(_ other: BigUInt) -> (gcd: BigUInt, selfCount: BigUInt, otherCount: BigUInt) {
 		guard other != 0 else { return (self, 1, 0) }
-		let (n, c) = self.quotientAndRemainder(dividingBy: other)
+		let (_, c) = self.quotientAndRemainder(dividingBy: other)
 		let r = other.gcdDecomposition(c)
-		return (r.0, r.2, r.1 - r.2*n)
+		return (r.0, 0, 0)
 	}
 }
 

@@ -130,4 +130,6 @@ static func %= (lhs: inout Self, rhs: Self)
 
 An arbitrary precision unsigned integer type. It conforms to `UnsignedInteger` and `ModularOperations`, and provides `func power<T: BinaryInteger>(of exponent: T) -> BigUInt`
 
+`gcdDecomposition()` of `BigUInt` only returns a valid `gcd`. The `selfCount` and `otherCount` values are meaningless (and always zero)
+
 Currently there is no `BigInt` implementation so the `Strideable` conformance comes from the standard library meaning it is not safe to call `distance(to other: BigUInt)` or `advanced(by n: BigInt)` unless the difference is within the range of `Int`
