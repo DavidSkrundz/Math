@@ -188,6 +188,13 @@ extension FiniteFieldInteger {
 	}
 }
 
+/// Custom Hashable Conformance
+extension FiniteFieldInteger {
+	public func hash(into hasher: inout Hasher) {
+		self.value.hash(into: &hasher)
+	}
+}
+
 /// Custom Strideable Conformance
 extension FiniteFieldInteger {
 	public func distance(to other: Self) -> Element.Stride {
