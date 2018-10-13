@@ -148,6 +148,12 @@ final class BigIntTests: XCTestCase {
 		a ^= 5
 		XCTAssertEqual(a, 7)
 	}
+	
+	func testRecreation() {
+		let a = BigUInt("6189700642690137449562111")!
+		let b = BigUInt(a)
+		XCTAssertEqual(b, a)
+	}
 }
 
 extension BigIntTests: TestCase {
@@ -169,5 +175,6 @@ extension BigIntTests: TestCase {
 		("testUnsignedTrailingBits", testUnsignedTrailingBits),
 		("testUnsignedNegate", testUnsignedNegate),
 		("testUnsignedCoverage", testUnsignedCoverage),
+		("testRecreation", testRecreation),
 	]
 }

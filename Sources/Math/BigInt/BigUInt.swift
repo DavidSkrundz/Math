@@ -38,7 +38,7 @@ extension BigUInt {
 /// Initializers
 extension BigUInt {
 	public init(integerLiteral value: UInt64) {
-		self.init(words: [value].asLittleEndian())
+		self.init(words: Array(value.words))
 	}
 	
 	public init?(_ description: String) {
@@ -101,19 +101,19 @@ extension BigUInt {
 	}
 	
 	public init<T: BinaryInteger>(_ source: T) {
-		self.init(words: [source].asLittleEndian())
+		self.init(words: Array(source.words))
 	}
 	
 	public init?<T: BinaryInteger>(exactly source: T) {
-		self.init(words: [source].asLittleEndian())
+		self.init(words: Array(source.words))
 	}
 	
 	public init<T: BinaryInteger>(clamping source: T) {
-		self.init(words: [source].asLittleEndian())
+		self.init(words: Array(source.words))
 	}
 	
 	public init<T: BinaryInteger>(truncatingIfNeeded source: T) {
-		self.init(words: [source].asLittleEndian())
+		self.init(words: Array(source.words))
 	}
 }
 
