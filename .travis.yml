@@ -56,12 +56,22 @@ matrix:
     - os: osx
       env:
       install:
+        - gem install xcpretty-travis-formatter
       script:
         - |
+          PROJ_OUTPUT=`swift package generate-xcodeproj --enable-code-coverage`
           PROJ_OUTPUT=`swift package generate-xcodeproj --enable-code-coverage`
           PROJ_NAME="${PROJ_OUTPUT/generated: .\//}"
           SCHEME_NAME="${PROJ_NAME/.xcodeproj/}-Package"
           MACOS_SDK=`xcodebuild -showsdks | grep macos | tail -n 1 | awk 'NF>1{print $NF}'`
+          echo WORKING_DIRECTORY=$(PWD) xcodebuild \
+            -project $PROJ_NAME \
+            -scheme $SCHEME_NAME \
+            -sdk $MACOS_SDK \
+            -destination arch=x86_64 \
+            -configuration Debug \
+            -enableCodeCoverage YES \
+            test
           WORKING_DIRECTORY=$(PWD) xcodebuild \
             -project $PROJ_NAME \
             -scheme $SCHEME_NAME \
@@ -69,7 +79,7 @@ matrix:
             -destination arch=x86_64 \
             -configuration Debug \
             -enableCodeCoverage YES \
-            test | xcpretty -tc
+            test | xcpretty -f `xcpretty-travis-formatter`
       after_success:
         - |
           if [[ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_PULL_REQUEST" == "false" ]]
