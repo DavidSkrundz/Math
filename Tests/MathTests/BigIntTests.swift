@@ -154,6 +154,12 @@ final class BigIntTests: XCTestCase {
 		let b = BigUInt(a)
 		XCTAssertEqual(b, a)
 	}
+	
+	func testInverse() {
+		let c = BigUInt("6")!
+		let d = BigUInt("7")!
+		XCTAssertEqual(c.inverse(modulo: d), BigUInt("6")!)
+	}
 }
 
 extension BigIntTests: TestCase {
@@ -176,5 +182,6 @@ extension BigIntTests: TestCase {
 		("testUnsignedNegate", testUnsignedNegate),
 		("testUnsignedCoverage", testUnsignedCoverage),
 		("testRecreation", testRecreation),
+		("testInverse", testInverse),
 	]
 }

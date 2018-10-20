@@ -363,10 +363,10 @@ extension BigUInt {
 		let lhs = self.modulo(modulo)
 		let rhs = other.modulo(modulo)
 		
-		if lhs > rhs {
+		if lhs >= rhs {
 			return lhs - rhs
 		} else {
-			return modulo + lhs - rhs
+			return modulo - rhs + lhs
 		}
 	}
 	
