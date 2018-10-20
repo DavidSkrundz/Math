@@ -29,34 +29,16 @@ extension BinaryInteger where Self: ModularOperations {
 	
 	public func inverse(modulo: Self) -> Self? {
 		precondition(modulo > 1)
-		guard self.gcdDecomposition(modulo).0 == 1 else { return nil }
-		if Self.isSigned {
-			let k = self % modulo
-			let r: Self
-			if k < 0 {
-				r = 0 - modulo.gcdDecomposition(0-k).2
-			} else {
-				r = modulo.gcdDecomposition(k).2
-			}
-			return r.adding(modulo, modulo: modulo)
-		} else {
-			var lhs = self
-			var new: Self = 1
-			var old: Self = 0
-			var q: Self = modulo
-			var h: Self = 0
-			var pos = false
-			while lhs != 0 {
-				let r = q % lhs
-				q /= lhs
-				h = q * new + old
-				old = new
-				new = h
-				q = lhs
-				lhs = r
-				pos.toggle()
-			}
-			return pos ? old : (modulo - old)
+		var (s, old_s): (Self, Self) = (0, 1)
+		var (t, old_t): (Self, Self) = (1, 0)
+		var (r, old_r): (Self, Self) = (modulo, self)
+		while r != 0 {
+			let (quotient, _) = old_r.quotientAndRemainder(dividingBy: r)
+			(old_r, r) = (r, old_r.subtracting(quotient.multiplying(r, modulo: modulo), modulo: modulo))
+			(old_s, s) = (s, old_s.subtracting(quotient.multiplying(s, modulo: modulo), modulo: modulo))
+			(old_t, t) = (t, old_t.subtracting(quotient.multiplying(t, modulo: modulo), modulo: modulo))
 		}
+		guard old_r == 1 else { return nil }
+		return old_s
 	}
 }

@@ -45,17 +45,4 @@ extension FixedWidthInteger {
 		}
 		return d.modulo(modulo)
 	}
-	
-	public func gcdDecomposition(_ other: Self) -> (gcd: Self,
-	                                                selfCount: Self,
-	                                                otherCount: Self) {
-		guard other != 0 else { return (self, 1, 0) }
-		guard other != -1 else { return (1, 0, -1) }
-		let (n, c) = self.quotientAndRemainder(dividingBy: other)
-		let r = other.gcdDecomposition(c)
-		if r.0 < 0 {
-			return (0&-r.0, 0-r.2, r.2&*n - r.1)
-		}
-		return (r.0, r.2, r.1 &- r.2&*n)
-	}
 }

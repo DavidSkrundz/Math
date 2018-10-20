@@ -168,26 +168,6 @@ final class ModTests: XCTestCase {
 			}
 		}
 	}
-	
-	func testGCDDecompositionInt8() {
-		for a in Int8.min...Int8.max {
-			printProgress(at: a)
-			for b in Int8.min...Int8.max {
-				let r = a.gcdDecomposition(b)
-				XCTAssertEqual(r.1&*a &+ r.2&*b, r.0, "\(a).gcdD(\(b))")
-			}
-		}
-	}
-	
-	func testGCDDecompositionUInt8() {
-		for a in UInt8.min...UInt8.max {
-			printProgress(at: a)
-			for b in UInt8.min...UInt8.max {
-				let r = a.gcdDecomposition(b)
-				XCTAssertEqual(r.1&*a &+ r.2&*b, r.0, "\(a).gcdD(\(b))")
-			}
-		}
-	}
 }
 
 extension ModTests: TestCase {
@@ -204,8 +184,6 @@ extension ModTests: TestCase {
 		("testExponentiatingUInt8", testExponentiatingUInt8),
 		("testInverseInt8", testInverseInt8),
 		("testInverseUInt8", testInverseUInt8),
-		("testGCDDecompositionInt8", testGCDDecompositionInt8),
-		("testGCDDecompositionUInt8", testGCDDecompositionUInt8),
 	]
 }
 

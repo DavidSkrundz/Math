@@ -52,8 +52,4 @@ public protocol ModularOperations {
 	///
 	/// - Returns: `R` such that `(self * R) mod (mod) == 1` or `nil`
 	func inverse(modulo: Self) -> Self?
-	
-	/// - Returns: (X,Y,Z) such that `X = gcd(self,other)` and
-	///            `Y*self + Z*other = X`
-	func gcdDecomposition(_ other: Self) -> (gcd: Self, selfCount: Self, otherCount: Self)
 }
