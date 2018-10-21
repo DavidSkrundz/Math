@@ -54,6 +54,12 @@ static func >>> <RHS: BinaryInteger>(lhs: Self, rhs: RHS) -> Self
 static func <<< <RHS: BinaryInteger>(lhs: Self, rhs: RHS) -> Self
 ```
 
+Square Root
+
+```Swift
+func sqrt() -> Self
+```
+
 ## `FixedWidthInteger`
 
 Byte Conversion:
