@@ -391,6 +391,18 @@ extension BigUInt {
 
 /// Random
 extension BigUInt {
+	@inlinable
+	public static func random(in range: Range<BigUInt>) -> BigUInt {
+		var rng = SystemRandomNumberGenerator()
+		return BigUInt.random(in: range, using: &rng)
+	}
+	
+	@inlinable
+	public static func random(in range: ClosedRange<BigUInt>) -> BigUInt {
+		var rng = SystemRandomNumberGenerator()
+		return BigUInt.random(in: range, using: &rng)
+	}
+	
 	public static func random<T: RandomNumberGenerator>(in range: Range<BigUInt>, using generator: inout T) -> BigUInt {
 		let randomRange = range.upperBound - range.lowerBound
 		let binaryMax = BigUInt(words: randomRange.words.map { _ in .max })

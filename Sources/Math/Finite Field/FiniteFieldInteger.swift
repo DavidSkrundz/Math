@@ -212,6 +212,18 @@ extension FiniteFieldInteger {
 
 /// Random
 extension FiniteFieldInteger {
+	@inlinable
+	public static func random(in range: Range<Self>) -> Self {
+		var rng = SystemRandomNumberGenerator()
+		return Self.random(in: range, using: &rng)
+	}
+	
+	@inlinable
+	public static func random(in range: ClosedRange<Self>) -> Self {
+		var rng = SystemRandomNumberGenerator()
+		return Self.random(in: range, using: &rng)
+	}
+	
 	public static func random<T: RandomNumberGenerator>(in range: Range<Self>, using generator: inout T) -> Self {
 		return Self(Element.random(in: range.lowerBound.value..<range.upperBound.value, using: &generator))
 	}
